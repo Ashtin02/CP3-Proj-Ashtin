@@ -8,10 +8,13 @@ Need 3 tables and 2 columsn in each
         Username 
 
     Comment table 
+        userId
         comment 
         date posted 
 
-    ???
-        ??
-        ??
+    Rating
+        UserId
+        Rating (1-5?)
+        date posted
+
     
