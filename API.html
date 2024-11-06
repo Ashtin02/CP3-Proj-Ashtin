@@ -1,0 +1,65 @@
+<!--
+Ashtin Rivada
+10-20-24
+This is my Meme webpage. Here we will use fetch one time with a GET method to get the memes template ID 
+And then again using a POST Method to caption our Meme. 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Memes With API</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+</head>
+<body>
+    <Header>
+        <h1>Welcome To My Meme Page Using APIs</h1>
+        <nav>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="Recipes.html">Chili Recipe</a></li>
+                <li><a href = "index.html">Home</a></li>
+            </ul>
+        </nav>
+    </Header>
+<section id="Meme-Top-Page"> 
+    <h1>Generate a Meme!</h1>
+
+    <p id="memeBio">I am a big fan of memes and always wanted to create some of my own but never really got around to doing it.
+    One of my favorite memes is the Drake Hotline Bling meme. So I though to myself what better time to create a meme 
+    than doing it on my own website.
+    <br><br>
+    <strong>How to use:</strong> Please fill out both the Top Section and Bottom Section and press Generate Meme. Then Voilà, Your meme will appear on the webpage, Congrats!
+    </p>
+</section>
+
+<section id="Meme-Caption-Input">
+
+    <div id="CaptionInput">
+        <label>Top Section: </label><input id="caption0" type="text" placeholder="Enter Top Caption">
+        <label>Bottom Section: </label><input id="caption1" type="text" placeholder="Enter Bottom Caption">
+    </div>
+
+    <div id="MemeButtonLocation">
+        <button id="MemeButton">Generate Meme</button>
+    </div>
+</section>
+
+<section id="MemeDisplay">
+    <h2>Your Meme:</h2>
+    <div id="MemeContainer">
+        
+    </div>
+
+</section>
+
+<footer id="API-Credit">
+    <p>The Meme image was provided by the ImgFlip Meme API</p>
+</footer>
+
+<script src="/Index.js"></script> 
+</body>
+
+</html>

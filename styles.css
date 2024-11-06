@@ -1,0 +1,159 @@
+/*
+  *** TODO: fill in your header ***
+  Ashtin Rivada
+  10-01-24
+
+  This is my CSS file that will hold the CSS for all  of my HTML pages to give them
+  a consistant look! 
+*/
+
+body {
+  background-color: #f4f4f4;
+  font-family: "Helvetica", sans-serif;
+}
+
+header{
+  display: flex;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+  font-family: "Satisfy", sans-serif;
+}
+
+
+nav{
+  display: flex;
+  list-style: none;
+  display: inline;
+}
+nav ul li{
+  display: inline;
+  margin: auto;
+
+}
+
+nav ul li a{
+  color: #fff;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+
+
+#home{
+  display: flex;
+  align-items:center;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 25px;
+}
+
+#HomePicture{
+  border-radius: 25px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  margin-right: 15px;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+
+#hikingPicture {
+  bottom: 50px;
+  left: 25px;
+  width: 250px;
+  height: auto;
+  border-radius: 25px;
+}
+
+#Chili {
+  display:flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+#Chili-image{
+  border-radius: 25px;
+  max-width: 600px;
+  max-height: 400px;
+  width: auto;
+  height:auto;
+
+}
+#About{
+  background-color: #f9f9f9;
+  display: flex;
+}
+#steps{
+  display:flex;
+  justify-content: flex-end;
+}
+
+#Recipe{
+  display:flex;
+  justify-content: space-around;
+}
+
+#Meme-Top-Page{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+
+#CaptionInput{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px ;
+}
+
+#MemeButtonLocation{
+  display:flex;
+  justify-content: center;
+}
+
+#MemeDisplay{
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+
+}
+
+#MemePicture{
+  display: flex;
+  justify-content: center;
+  max-width: 500px;
+  max-height: 500px;
+}
+
+#API-Credit{
+  display: flex;
+  justify-content: center;
+  font-size: x-small;
+}
+
+#memeBio{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 80%;
+  border-radius: 25px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  padding: 25px;
+}
+
+#LoadText{
+  display: flex;
+  justify-content: center;
+}
+
+.transparent{
+  opacity: 0%;
+  display: none;
+}
