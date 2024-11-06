@@ -1,0 +1,11 @@
+{
+  "name": "cp3-proj-ashtin",
+  "version": "1.0.0",
+  "description": "** please refer to Canvas for the latest version of these instructions **",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
