@@ -148,12 +148,34 @@ nav ul li a{
   padding: 25px;
 }
 
-#LoadText{
+#chatbox{
   display: flex;
-  justify-content: center;
+  max-width: 80%;
+  max-height: 80%;
+  border-color: #333;
+  border-radius: 25px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  border: 1px solid;
 }
 
-.transparent{
-  opacity: 0%;
-  display: none;
+#chatInput{
+  display: flex;
+  justify-content: center;
+
+}
+
+#username{
+  margin: 10px;
+}
+#message{
+  margin :10px;
+}
+
+#rating{
+  margin: 10px;
+}
+
+#submitChatBtn{
+  display:flex; 
+  justify-content: center;
 }
