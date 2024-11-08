@@ -1,5 +1,7 @@
 "use strict";
 
+//-------------------JS FOR MEME PAGE ----------------------------
+
 document.addEventListener("DOMContentLoaded", fetchData)
 
 /**
@@ -100,3 +102,22 @@ async function post(data){
         memeContainer.appendChild(newImg);
 },2500)
 };
+
+
+//-------------------JS FOR CHAT PAGE ----------------------------
+
+//write JS but once you hit the fetch that needs somethign from app.js stop and write 
+//the app.js code needed to run that fetch
+
+async function getMessages(){
+    let data = await fetch("/getComments");
+    let messages = data.json();
+    chatbox.innerHTML = "";
+    array.forEach(({UserName, comment, Rating, PostDate }) => {
+        let message = document.createElement('p'); 
+        message.textContent = `${UserName}: ${comment} ${Rating} ${PostDate}`;
+        chatbox.appendChild(message);
+    });
+
+
+}
