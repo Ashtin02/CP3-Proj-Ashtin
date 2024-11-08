@@ -111,9 +111,11 @@ async function post(data){
 
 async function getMessages(){
     let data = await fetch("/getComments");
-    let messages = data.json();
+    let messages = await data.json();
+    let chatbox = document.getElementById("chatbox");
+
     chatbox.innerHTML = "";
-    array.forEach(({UserName, comment, Rating, PostDate }) => {
+    messages.forEach(({UserName, comment, Rating, PostDate }) => {
         let message = document.createElement('p'); 
         message.textContent = `${UserName}: ${comment} ${Rating} ${PostDate}`;
         chatbox.appendChild(message);
@@ -121,3 +123,5 @@ async function getMessages(){
 
 
 }
+
+getMessages();

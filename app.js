@@ -86,8 +86,16 @@ app.listen(PORT, () =>{
 
 
 app.get("/getComments", async(req, res) =>{
+    let db = await getDBConnection(); 
     try{
-        let db = await getDBConnection(); 
+    await db.exec(`INSERT INTO USERS (UserName) 
+    VALUES ('Tarek');`);
+
+    await db.exec(`INSERT INTO COMMENTS (UserID, Comment) 
+    VALUES (
+        (SELECT UserID FROM USERS WHERE UserName = 'Tarek'),  -- This will retrieve the UserID of 'Tarek'
+        'This is a comment text.'  -- Replace this with the actual comment text you want
+    );`)
         let comment = await db.all(
             `SELECT USERS.UserName, COMMENTS.Comment, Rating.Rating, COMMENTS.PostDate FROM COMMENTS JOIN USERS ON COMMENTS.UserID = USERS.UserID LEFT JOIN Rating ON COMMENTS.CommentID = Rating.CommentID;`
         );
