@@ -180,9 +180,15 @@ nav ul li a{
 
 #rating{
   margin: 10px;
+  width: 75px;
 }
 
 #submitChatBtn{
   display:flex; 
+  justify-content: center;
+}
+
+#ErrorMessage{
+  display: flex;
   justify-content: center;
 }

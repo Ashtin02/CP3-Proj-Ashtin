@@ -88,15 +88,27 @@ app.listen(PORT, () =>{
 app.get("/getComments", async(req, res) =>{
     try{
         let db = await getDBConnection(); 
-        let comment = await db.all(
+        let comments = await db.all(
             `SELECT USERS.UserName, COMMENTS.Comment, Rating.Rating, COMMENTS.PostDate FROM COMMENTS JOIN USERS ON COMMENTS.UserID = USERS.UserID LEFT JOIN Rating ON COMMENTS.CommentID = Rating.CommentID;`
         );
         await db.close();
-        res.json(comment);
+        res.json(comments);
 
     }catch(error){
         res.status(500).json({
             error: "Error getting comments"
+        })
+    }
+})
+
+app.post("/sendMessage", async (req, res) =>{
+    try{
+        let {username, message, rating } = req.body;
+        
+
+    }catch(error){
+        res.status(500).json({
+            error: "Error Submitting Message"
         })
     }
 })

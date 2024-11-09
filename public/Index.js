@@ -108,6 +108,11 @@ async function post(data){
 
 //write JS but once you hit the fetch that needs somethign from app.js stop and write 
 //the app.js code needed to run that fetch
+document.addEventListener("DOMContentLoaded", () =>{
+    getMessages();
+    sendMessage(); 
+})
+
 
 async function getMessages(){
     let data = await fetch("/getComments");
@@ -117,11 +122,27 @@ async function getMessages(){
     chatbox.innerHTML = "";
     messages.forEach(({UserName, comment, Rating, PostDate }) => {
         let message = document.createElement('p'); 
-        message.textContent = `${UserName}: ${comment} ${Rating} ${PostDate}`;
+        message.textContent = `${UserName}: ${comment}    ${Rating}     ${PostDate}`;
         chatbox.appendChild(message);
     });
-
-
 }
 
-getMessages();
+async function sendMessage(){ 
+    let chatButton = document.getElementById("chatBtn"); 
+    chatButton.addEventListener("click", async ()=>{
+        let username = document.getElementById("username").value; 
+        let message = document.getElementById("message").value; 
+        let rating = document.getElementById("rating").value;
+
+        if(username && message && rating){
+            errorMessage.innerHTML = "";
+            let res = await fetch("/sendMessage")
+
+        }else{
+            let errorMessage = document.getElementById("ErrorMessage");
+            errorMessage.innerHTML = "Please Input a Username, Message, and Rating Before Submitting."
+            return;
+        }
+
+    })
+}
