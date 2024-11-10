@@ -119,10 +119,17 @@ async function getMessages(){
     let messages = await data.json();
     let chatbox = document.getElementById("chatbox");
 
-    chatbox.innerHTML = "";
-    messages.forEach(({UserName, comment, Rating, PostDate }) => {
+    messages.forEach(({UserName, Comment, Rating, PostDate }) => { 
+
+        let displayComment = Comment || 'No Comment Given'
+        let displayRating = Rating || 'No Rating Given'
+        let displayUserName = UserName || 'No UserName Given'
+        let displayPostDate = PostDate || 'No Date Given'
+        let messageText = `${displayUserName}: ${displayComment}      Rating: ${displayRating}      ${displayPostDate}`;
+
         let message = document.createElement('p'); 
-        message.textContent = `${UserName}: ${comment}    ${Rating}     ${PostDate}`;
+        message.classList.add('message');
+        message.textContent = messageText;
         chatbox.appendChild(message);
     });
 }
@@ -130,19 +137,34 @@ async function getMessages(){
 async function sendMessage(){ 
     let chatButton = document.getElementById("chatBtn"); 
     chatButton.addEventListener("click", async ()=>{
+        let errorMessage = document.getElementById("ErrorMessage");
         let username = document.getElementById("username").value; 
         let message = document.getElementById("message").value; 
-        let rating = document.getElementById("rating").value;
+        let rating = parseInt(document.getElementById("rating").value);
 
-        if(username && message && rating){
+        if(username && message && rating > 0 && rating < 6){
             errorMessage.innerHTML = "";
-            let res = await fetch("/sendMessage")
+            let res = await fetch("/sendMessage", {
+                method: "POST", 
+                headers:{
+                    "Content-Type": "application/json"
+                }, 
+                body: JSON.stringify({username, message, rating})
+            });
+
+            if(res.ok){
+                document.getElementById("username").value = "";
+                document.getElementById("message").value = "";
+                document.getElementById("rating").value = "";
+            }else{
+                alert("error Submitting Message")
+            }
 
         }else{
-            let errorMessage = document.getElementById("ErrorMessage");
-            errorMessage.innerHTML = "Please Input a Username, Message, and Rating Before Submitting."
+            errorMessage.innerHTML = "Please Input a Username, Message, and Rating (within specified range) Before Submitting."
             return;
         }
+        getMessages();
 
     })
 }

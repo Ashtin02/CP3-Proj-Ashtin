@@ -150,19 +150,19 @@ nav ul li a{
 
 #chatbox{
   display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: start;
   margin: auto;
-  width: 300px;
-  height: 300px;
+  width: 500px;
+  height: 500px;
   border-color: #333;
   border-radius: 25px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   border: 1px solid;
   margin-top: 10px;
   overflow-y: auto;
-  
+  padding: 15px;
 }
 
 #chatInput{
@@ -192,3 +192,12 @@ nav ul li a{
   display: flex;
   justify-content: center;
 }
+
+.message{
+  margin-bottom: 10px;
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+}
+

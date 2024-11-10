@@ -106,9 +106,37 @@ app.post("/sendMessage", async (req, res) =>{
         let {username, message, rating } = req.body;
         
 
-    }catch(error){
+        let db = await getDBConnection();
+
+        let user = await db.get(`SELECT * FROM USERS WHERE Username = ?`, [username]);
+
+        if(user){
+            let insertC = await db.run(`INSERT INTO COMMENTS (UserID, Comment) VALUES (?, ?)`, [user.UserID, message]);
+            let comment = await db.get(`SELECT * FROM COMMENTS WHERE UserID = ? AND Comment = ?`, [user.UserID, message]);
+            let insertR = await db.run(`INSERT INTO Rating (Rating, UserID, CommentID) VALUES (?, ?, ?)`, [rating, comment.UserID, comment.CommentID]);
+
+            console.log("inserted succefully");
+            
+        }else{
+            let insertU = await db.run(`INSERT INTO USERS (UserName) VALUES (?)`, [username]);
+            let user = await db.get(`SELECT * FROM USERS WHERE Username = ?`, [username]);
+            let insertC = await db.run(`INSERT INTO COMMENTS (UserID, Comment) VALUES (?, ?)`, [user.UserID, message]);
+            let comment = await db.get(`SELECT * FROM COMMENTS WHERE UserID = (?)`, [user.UserID]);
+            let insertR = await db.run(`INSERT INTO Rating (Rating, UserID, CommentID) VALUES (?, ?, ?)`, [rating, comment.UserID, comment.CommentID]);
+
+            console.log("inserted succefully");
+        }
+
+
+        db.close();
+
+    }catch(err){
+        console.error(err.message)
+        console.error(err.stack)
         res.status(500).json({
-            error: "Error Submitting Message"
+            error: err
         })
     }
 })
+
+
