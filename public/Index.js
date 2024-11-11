@@ -161,12 +161,12 @@ async function sendMessage(){
 
             }else{
                 alert("error Submitting Message")
-            }
+            };
 
         }else{
             errorMessage.innerHTML = "Please Input a Username, Message, and Rating (within specified range) Before Submitting."
             return;
-        }
+        };
 
-    })
+    });
 }

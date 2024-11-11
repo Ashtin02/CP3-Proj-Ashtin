@@ -96,9 +96,9 @@ app.get("/getComments", async(req, res) =>{
     }catch(error){
         res.status(500).json({
             error: "Error getting comments"
-        })
-    }
-})
+        });
+    };
+});
 
 app.post("/sendMessage", async (req, res) =>{
     try{
@@ -112,7 +112,6 @@ app.post("/sendMessage", async (req, res) =>{
         if(user){
             await db.run(`INSERT INTO COMMENTS (UserID, Comment) VALUES (?, ?)`, [user.UserID, message]);
             let comment = await db.get(`SELECT last_insert_rowid() as CommentID`);
-
             await db.run(`INSERT INTO Rating (Rating, UserID, CommentID) VALUES (?, ?, ?)`, [rating, user.UserID, comment.CommentID]);
 
             console.log("inserted succefully");
@@ -125,19 +124,19 @@ app.post("/sendMessage", async (req, res) =>{
             await db.run(`INSERT INTO Rating (Rating, UserID, CommentID) VALUES (?, ?, ?)`, [rating, user.UserID, comment.CommentID]);
 
             console.log("inserted succefully");
-        }
+        };
 
 
          await db.close();
-         res.status(200).json({ message: "Comment and rating saved successfully" })
+         res.status(200).json({ message: "Comment and rating saved successfully" });
 
     }catch(err){
-        console.error(err.message)
-        console.error(err.stack)
+        console.error(err.message);
+        console.error(err.stack);
         res.status(500).json({
             error: err
-        })
-    }
-})
+        });
+    };
+});
 
 
