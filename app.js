@@ -4,14 +4,13 @@ const sqlite3 = require('sqlite3');
 const sqlite = require('sqlite');
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
+
 
 const app = express();
 const PORT = 3005;
 
-//saw in the class panapto video (added in case needed)
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -111,24 +110,26 @@ app.post("/sendMessage", async (req, res) =>{
         let user = await db.get(`SELECT * FROM USERS WHERE Username = ?`, [username]);
 
         if(user){
-            let insertC = await db.run(`INSERT INTO COMMENTS (UserID, Comment) VALUES (?, ?)`, [user.UserID, message]);
-            let comment = await db.get(`SELECT * FROM COMMENTS WHERE UserID = ? AND Comment = ?`, [user.UserID, message]);
-            let insertR = await db.run(`INSERT INTO Rating (Rating, UserID, CommentID) VALUES (?, ?, ?)`, [rating, comment.UserID, comment.CommentID]);
+            await db.run(`INSERT INTO COMMENTS (UserID, Comment) VALUES (?, ?)`, [user.UserID, message]);
+            let comment = await db.get(`SELECT last_insert_rowid() as CommentID`);
+
+            await db.run(`INSERT INTO Rating (Rating, UserID, CommentID) VALUES (?, ?, ?)`, [rating, user.UserID, comment.CommentID]);
 
             console.log("inserted succefully");
             
         }else{
-            let insertU = await db.run(`INSERT INTO USERS (UserName) VALUES (?)`, [username]);
+            await db.run(`INSERT INTO USERS (UserName) VALUES (?)`, [username]);
             let user = await db.get(`SELECT * FROM USERS WHERE Username = ?`, [username]);
-            let insertC = await db.run(`INSERT INTO COMMENTS (UserID, Comment) VALUES (?, ?)`, [user.UserID, message]);
-            let comment = await db.get(`SELECT * FROM COMMENTS WHERE UserID = (?)`, [user.UserID]);
-            let insertR = await db.run(`INSERT INTO Rating (Rating, UserID, CommentID) VALUES (?, ?, ?)`, [rating, comment.UserID, comment.CommentID]);
+            await db.run(`INSERT INTO COMMENTS (UserID, Comment) VALUES (?, ?)`, [user.UserID, message]);
+            let comment = await db.get(`SELECT last_insert_rowid() as CommentID`);
+            await db.run(`INSERT INTO Rating (Rating, UserID, CommentID) VALUES (?, ?, ?)`, [rating, user.UserID, comment.CommentID]);
 
             console.log("inserted succefully");
         }
 
 
-        db.close();
+         await db.close();
+         res.status(200).json({ message: "Comment and rating saved successfully" })
 
     }catch(err){
         console.error(err.message)

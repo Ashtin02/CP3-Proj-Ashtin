@@ -108,16 +108,16 @@ async function post(data){
 
 //write JS but once you hit the fetch that needs somethign from app.js stop and write 
 //the app.js code needed to run that fetch
-document.addEventListener("DOMContentLoaded", () =>{
-    getMessages();
-    sendMessage(); 
-})
 
+getMessages();
+sendMessage();
 
 async function getMessages(){
     let data = await fetch("/getComments");
     let messages = await data.json();
     let chatbox = document.getElementById("chatbox");
+
+    chatbox.innerHTML = "";
 
     messages.forEach(({UserName, Comment, Rating, PostDate }) => { 
 
@@ -125,7 +125,7 @@ async function getMessages(){
         let displayRating = Rating || 'No Rating Given'
         let displayUserName = UserName || 'No UserName Given'
         let displayPostDate = PostDate || 'No Date Given'
-        let messageText = `${displayUserName}: ${displayComment}      Rating: ${displayRating}      ${displayPostDate}`;
+        let messageText = `${displayUserName}: ${displayComment}      Rating: ${displayRating}      ${displayPostDate}` +" UTC";
 
         let message = document.createElement('p'); 
         message.classList.add('message');
@@ -156,6 +156,9 @@ async function sendMessage(){
                 document.getElementById("username").value = "";
                 document.getElementById("message").value = "";
                 document.getElementById("rating").value = "";
+
+                getMessages();
+
             }else{
                 alert("error Submitting Message")
             }
@@ -164,7 +167,6 @@ async function sendMessage(){
             errorMessage.innerHTML = "Please Input a Username, Message, and Rating (within specified range) Before Submitting."
             return;
         }
-        getMessages();
 
     })
 }
