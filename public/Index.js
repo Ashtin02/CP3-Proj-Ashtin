@@ -160,7 +160,7 @@ async function sendMessage(){
                 getMessages();
 
             }else{
-                alert("error Submitting Message")
+                errorMessage.innerHTML= "error Submitting Message";
             };
 
         }else{
@@ -170,3 +170,5 @@ async function sendMessage(){
 
     });
 }
+
+

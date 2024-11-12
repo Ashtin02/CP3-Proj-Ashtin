@@ -4,7 +4,7 @@
   "description": "** please refer to Canvas for the latest version of these instructions **",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc mocha",
     "start": "nodemon app.js"
   },
   "author": "",
@@ -15,5 +15,11 @@
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   },
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^10.8.2",
+    "nyc": "^17.1.0",
+    "supertest": "^7.0.0"
+  }
 }

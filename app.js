@@ -15,8 +15,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 async function getDBConnection(){
+    const dbFile = process.env.NODE_ENV === 'test' ? ':memory' : './chat.db';
     const db = await sqlite.open({
-        filename: './chat.db', 
+        filename: dbFile, 
         driver: sqlite3.Database
     });
     return db;
@@ -131,12 +132,12 @@ app.post("/sendMessage", async (req, res) =>{
          res.status(200).json({ message: "Comment and rating saved successfully" });
 
     }catch(err){
-        console.error(err.message);
-        console.error(err.stack);
         res.status(500).json({
-            error: err
+            error: "Username, Message, and Rating are all required"
         });
     };
 });
 
 
+
+module.exports = {app, getDBConnection};
