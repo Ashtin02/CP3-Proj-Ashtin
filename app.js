@@ -32,7 +32,7 @@ async function getDBConnection(){
  */
 async function initializeDatabase(){
     const db = await getDBConnection();
-    
+
     await db.exec(`CREATE TABLE IF NOT EXISTS USERS(
         UserID INTEGER PRIMARY KEY AUTOINCREMENT , 
         UserName TEXT UNIQUE, 
@@ -136,6 +136,12 @@ app.get("/getComments", async(req, res) =>{
 app.post("/sendMessage", async (req, res) =>{
     try{
         let {username, message, rating } = req.body;
+
+        if(!username || !message || !rating){
+            return res.status(400).json({
+                error: "Username, Message, an dRating must be filled in"
+            });
+        };
         
 
         let db = await getDBConnection();
