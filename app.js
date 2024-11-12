@@ -13,7 +13,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+/**
+ * gets the connection for the database
+ * (modified a bit from class so I can use a test database for testing as my tests kept sending data to my actual databse)
+ * @returns the database connection 
+ */
 async function getDBConnection(){
     const dbFile = process.env.NODE_ENV === 'test' ? ':memory' : './chat.db';
     const db = await sqlite.open({
@@ -23,8 +27,12 @@ async function getDBConnection(){
     return db;
 }
 
+/**
+ * initializes the database in case it is not already initialized for some reason
+ */
 async function initializeDatabase(){
     const db = await getDBConnection();
+    
     await db.exec(`CREATE TABLE IF NOT EXISTS USERS(
         UserID INTEGER PRIMARY KEY AUTOINCREMENT , 
         UserName TEXT UNIQUE, 
@@ -58,33 +66,53 @@ async function initializeDatabase(){
 initializeDatabase();
 
 //---------------- Routing for my html Pages ---------------- 
-
+/**
+ * Gets the Index (home) page
+ */
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'HTML', 'index.html'));
 });
 
+/**
+ * Gets the about page
+ */
 app.get('/about.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'HTML', 'about.html'));
 });
 
-
+/**
+ * Gets the API page 
+ */
 app.get('/API.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'HTML', 'API.html'));
 });
 
+/**
+ * Gets the comments page
+ */
 app.get('/comments.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'HTML', 'comments.html'));
 });
 
+/**
+ * Gets the recipe page
+ */
 app.get('/Recipes.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'HTML', 'Recipes.html'));
 });
 
+/**
+ * conole logs the server that my website is running on
+ */
 app.listen(PORT, () =>{
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 
+/**
+ * This works with the getComments function in my index.js and does the backend work like working 
+ * With the database and actually pulling th edata from the database.
+ */
 app.get("/getComments", async(req, res) =>{
     try{
         let db = await getDBConnection(); 
@@ -101,6 +129,10 @@ app.get("/getComments", async(req, res) =>{
     };
 });
 
+/**
+ * This works with my sendMessage function in index.js
+ * Acts on the backend and uses SQL calls to insert data into their respective tables
+ */
 app.post("/sendMessage", async (req, res) =>{
     try{
         let {username, message, rating } = req.body;
@@ -137,6 +169,7 @@ app.post("/sendMessage", async (req, res) =>{
         });
     };
 });
+
 
 
 

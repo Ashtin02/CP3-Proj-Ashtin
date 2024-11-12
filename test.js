@@ -4,6 +4,10 @@ const {app, getDBConnection} = require("./app");
 
 process.env.NODE_ENV = 'test';
 
+/**
+ * fucntion to initilaize my testing database as I was running into problems with my tests actualling inserting
+ * into my main database and messing with my chatbox on the front-end
+ */
 async function initializeTestDatabase() {
     const db = await getDBConnection();
     await db.exec(`CREATE TABLE IF NOT EXISTS USERS (
@@ -31,7 +35,9 @@ async function initializeTestDatabase() {
 }
 
 
-
+/**
+ * tests the index routing
+ */
 describe('GET /', () =>{
     it('should return index.html', (done) =>{
         request(app)
@@ -41,6 +47,9 @@ describe('GET /', () =>{
     });
 });
 
+/**
+ * Tests routing to the about page
+ */
 describe('GET /about.html', () =>{
     it('should return about.html', (done) =>{
         request(app)
@@ -50,6 +59,9 @@ describe('GET /about.html', () =>{
     });
 });
 
+/**
+ * Tests routing to the API Page
+ */
 describe('GET /API.html', () =>{
     it('should return API.html', (done) =>{
         request(app)
@@ -59,6 +71,9 @@ describe('GET /API.html', () =>{
     });
 });
 
+/**
+ * Tests routing to the comments page
+ */
 describe('GET /comments.html', () =>{
     it('should return comments.html', (done) =>{
         request(app)
@@ -68,6 +83,9 @@ describe('GET /comments.html', () =>{
     });
 });
 
+/**
+ * Tests routing to the recipes page
+ */
 describe('GET /Recipes.html', () =>{
     it('should return Recipes.html', (done) =>{
         request(app)
@@ -77,6 +95,9 @@ describe('GET /Recipes.html', () =>{
     });
 });
 
+/**
+ * Tests my getComments call and makes sure it returns an array like it should
+ */
 describe('GET /getComments', () =>{
 
     before(async () =>{
@@ -95,10 +116,12 @@ describe('GET /getComments', () =>{
             done();
         });
     });
-
-
 });
 
+/**
+ * Tests my sendMessage call and makes sure it inputs the data sucessfully
+ * Also checks the error portion of the call 
+ */
 describe('POST /sendMessage', ()=>{
 
     before(async () =>{
@@ -136,3 +159,7 @@ describe('POST /sendMessage', ()=>{
         })
     })
 })
+
+after(async () =>{ 
+process.exit(0)
+});

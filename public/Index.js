@@ -112,6 +112,10 @@ async function post(data){
 getMessages();
 sendMessage();
 
+/**
+ * function that will get the messages from the database and display them 
+ *  in the chatbox
+ */
 async function getMessages(){
     let data = await fetch("/getComments");
     let messages = await data.json();
@@ -134,6 +138,9 @@ async function getMessages(){
     });
 }
 
+/**
+ * Function that will take the user input and send the data to the corresponding tables in the database
+ */
 async function sendMessage(){ 
     let chatButton = document.getElementById("chatBtn"); 
     chatButton.addEventListener("click", async ()=>{
