@@ -139,7 +139,7 @@ app.post("/sendMessage", async (req, res) =>{
 
         if(!username || !message || !rating){
             return res.status(400).json({
-                error: "Username, Message, an dRating must be filled in"
+                error: "Username, Message, and Rating are all required"
             });
         };
         

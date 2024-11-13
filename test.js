@@ -148,7 +148,7 @@ describe('POST /sendMessage', ()=>{
         request(app)
         .post('/sendMessage')
         .send({username : "goku", message: "Hello, I am Goku"})
-        .expect(500)
+        .expect(400)
         .expect('Content-Type', /json/)
         .end((err, res) => {
             if(err) return done(err);
