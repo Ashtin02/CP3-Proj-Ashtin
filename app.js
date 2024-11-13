@@ -171,7 +171,7 @@ app.post("/sendMessage", async (req, res) =>{
 
     }catch(err){
         res.status(500).json({
-            error: "Username, Message, and Rating are all required"
+            error: "error sending message"
         });
     };
 });
